@@ -1,0 +1,60 @@
+{
+	"name": "@directus/eslint-config",
+	"type": "module",
+	"version": "0.0.0",
+	"packageManager": "pnpm@9.12.2",
+	"description": "Shared ESLint config used in Directus projects",
+	"author": {
+		"name": "Monospace Inc",
+		"email": "info@monospace.io",
+		"url": "https://monospace.io"
+	},
+	"license": "MIT",
+	"funding": "https://github.com/directus/directus?sponsor=1",
+	"homepage": "https://directus.io",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/directus/eslint-config.git"
+	},
+	"exports": {
+		".": "./dist/index.js",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": "18 || 20",
+		"pnpm": "9"
+	},
+	"maintainers": [
+		{
+			"name": "Pascal Jufer",
+			"email": "pascal@directus.io",
+			"url": "https://github.com/paescuj"
+		}
+	],
+	"scripts": {
+		"build": "pnpm run '/^(bundle|typecheck)$/'",
+		"bundle": "tsup src/index.ts --format=esm --dts --minify",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint --flag unstable_ts_config .",
+		"inspect": "pnpm dlx @eslint/config-inspector --config eslint.config.ts"
+	},
+	"peerDependencies": {
+		"eslint": "^9.10"
+	},
+	"dependencies": {
+		"@antfu/eslint-config": "3.8.0",
+		"eslint-flat-config-utils": "0.4.0",
+		"eslint-plugin-format": "0.1.2",
+		"prettier": "3.3.3"
+	},
+	"devDependencies": {
+		"@directus/tsconfig": "2.0.0",
+		"eslint": "9.13.0",
+		"jiti": "2.3.3",
+		"tsup": "8.3.0",
+		"typescript": "5.6.3"
+	}
+}
