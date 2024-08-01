@@ -1,0 +1,1 @@
+# Directus ESLint Config
