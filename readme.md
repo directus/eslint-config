@@ -7,7 +7,7 @@ Based on https://github.com/antfu/eslint-config ❤️
 ## Installation
 
 ```shell
-pnpm add-D eslint @directus/eslint-config
+pnpm add -D eslint @directus/eslint-config
 ```
 
 ## Usage
