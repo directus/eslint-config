@@ -38,7 +38,7 @@
 		"build": "pnpm run '/^(bundle|typecheck)$/'",
 		"bundle": "tsup src/index.ts --format=esm --dts --minify",
 		"typecheck": "tsc --noEmit",
-		"lint": "eslint --flag unstable_ts_config .",
+		"lint": "eslint .",
 		"inspect": "pnpm dlx @eslint/config-inspector --config eslint.config.ts"
 	},
 	"peerDependencies": {
