@@ -1,29 +1,18 @@
-import type { antfu, ConfigNames, TypedFlatConfigItem } from '@antfu/eslint-config';
-import type { FlatConfigComposer } from 'eslint-flat-config-utils';
+import type { Linter } from 'eslint'
+import type { ConfigNames, RuleOptions } from './typegen'
 
-export type AntfuOptions = Parameters<typeof antfu>[0];
+export type Awaitable<T> = T | Promise<T>
 
-export type EslintConfig = Parameters<typeof antfu>[1];
+export type Rules = RuleOptions
 
-export type EslintResult = FlatConfigComposer<TypedFlatConfigItem, ConfigNames>;
+export type { ConfigNames }
 
-export interface DirectusOptions {
-	/**
-	 * Enable TypeScript support.
-	 *
-	 * @default true
-	 */
-	typescript?: boolean;
-
-	/**
-	 * Enable Vue support.
-	 *
-	 * @default false
-	 */
-	vue?: boolean;
-
-	/**
-	 * Additional ESLint config.
-	 */
-	eslintConfig?: EslintConfig;
+export type TypedFlatConfigItem = Omit<Linter.Config<Linter.RulesRecord & Rules>, 'plugins'> & {
+  // Relax plugins type limitation, as most of the plugins did not have correct type info yet.
+  /**
+   * An object containing a name-value mapping of plugin names to plugin objects. When `files` is specified, these plugins are only available to the matching files.
+   *
+   * @see [Using plugins in your configuration](https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new#using-plugins-in-your-configuration)
+   */
+  plugins?: Record<string, any>
 }

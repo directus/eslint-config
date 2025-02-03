@@ -15,19 +15,16 @@ runs:
         node-version-file: package.json
         registry-url: ${{ inputs.registry }}
 
-    - uses: pnpm/action-setup@v4
-      name: Setup pnpm
-      id: pnpm-install
-      with:
-        run_install: false
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
 
     - name: Get pnpm cache dir
       id: pnpm-cache-dir
       shell: bash
       run: echo "pnpm-cache-dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-    - uses: actions/cache@v4
-      name: Setup pnpm cache
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
       with:
         path: ${{ steps.pnpm-cache-dir.outputs.pnpm-cache-dir }}
         key:

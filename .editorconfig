@@ -6,11 +6,11 @@ insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
 
-[*.{mjs,cjs,js,mts,cts,ts,json,vue,html,scss,css,toml,md}]
+[*.{mjs,cjs,js,mts,cts,ts,json,vue,html,scss,css,toml}]
 indent_style = tab
-
-[*.md]
-trim_trailing_whitespace = false
 
 [*.{yml,yaml}]
 indent_style = space
+
+[*.md]
+trim_trailing_whitespace = false
