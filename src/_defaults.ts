@@ -1,38 +1,15 @@
-import type { AntfuOptions, EslintConfig } from './types.js';
-
-export const antfuOptions: AntfuOptions = {
-	stylistic: {
-		indent: 'tab',
-		semi: true,
-		overrides: {
-			// Require parentheses around arrow function arguments
-			'style/arrow-parens': 'error',
-		},
-	},
-	formatters: {
-		html: true,
-		css: true,
-		markdown: true,
-		graphql: true,
-		prettierOptions: {
-			printWidth: 120,
-			proseWrap: 'always',
-			htmlWhitespaceSensitivity: 'ignore',
-		},
-	},
-	javascript: {
-		overrides: {
-			'antfu/no-top-level-await': 'off',
-		},
-	},
-	typescript: true,
-	vue: false,
-	jsx: false,
+const prettierOptions = {
+	printWidth: 120,
+	proseWrap: 'always',
+	htmlWhitespaceSensitivity: 'ignore',
 };
 
-export const eslintConfig: EslintConfig = [
+const eslintConfig = [
 	{
 		rules: {
+			// Require parentheses around arrow function arguments
+			'style/arrow-parens': 'error',
+
 			// Require empty line between certain statements
 			'style/padding-line-between-statements': [
 				'error',
@@ -73,12 +50,6 @@ export const eslintConfig: EslintConfig = [
 					],
 				},
 			],
-
-			// Disallow nested ternary expressions
-			'no-nested-ternary': 'error',
-
-			// Disallow expressions where the operation doesn't affect the value
-			'no-constant-binary-expression': 'error',
 		},
 	},
 	{

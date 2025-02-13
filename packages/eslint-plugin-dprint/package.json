@@ -1,0 +1,76 @@
+{
+	"name": "@directus/eslint-plugin-dprint",
+	"type": "module",
+	"version": "0.0.0",
+	"description": "ESLint plugin to format code with dprint",
+	"author": {
+		"name": "Monospace Inc",
+		"email": "info@monospace.io",
+		"url": "https://monospace.io"
+	},
+	"license": "MIT",
+	"funding": "https://github.com/directus/directus?sponsor=1",
+	"homepage": "https://directus.io",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/directus/eslint-config.git",
+		"directory": "packages/eslint-plugin-dprint"
+	},
+	"sideEffects": false,
+	"exports": {
+		".": "./src/index.ts",
+		"./rule-options": {
+			"types": "./dts/rule-options.d.ts"
+		}
+	},
+	"publishConfig": {
+		"exports": {
+			".": "./dist/index.js",
+			"./package.json": "./package.json",
+			"./define-config-support": {
+				"types": "./dts/define-config-support.d.ts"
+			},
+			"./rule-options": {
+				"types": "./dts/rule-options.d.ts"
+			}
+		}
+	},
+	"files": [
+		"dist",
+		"dts",
+		"plugins"
+	],
+	"engines": {
+		"node": ">=22"
+	},
+	"maintainers": [
+		{
+			"name": "Pascal Jufer",
+			"email": "pascal@directus.io",
+			"url": "https://github.com/paescuj"
+		}
+	],
+	"scripts": {
+		"build": "pnpm run '/^(bundle|typecheck)$/'",
+		"bundle": "tsup",
+		"typecheck": "tsc --noEmit",
+		"fetch-dprint-plugins": "node scripts/fetch-dprint-plugins.js"
+	},
+	"peerDependencies": {
+		"eslint": "^9.10"
+	},
+	"dependencies": {
+		"@dprint/formatter": "0.4.1",
+		"eslint-formatting-reporter": "0.0.0",
+		"eslint-parser-plain": "0.1.1",
+		"synckit": "0.9.2"
+	},
+	"devDependencies": {
+		"@directus/tsconfig": "3.0.0",
+		"@espcom/esbuild-plugin-replace": "1.1.0",
+		"@types/node": "22.13.2",
+		"eslint": "9.20.1",
+		"tsup": "8.3.6",
+		"typescript": "5.7.3"
+	}
+}
