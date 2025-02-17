@@ -3,11 +3,12 @@ import pluginJsdoc from 'eslint-plugin-jsdoc';
 
 export function jsdoc(): FlatConfigItem {
 	return {
-		name: 'directus/jsdoc/setup',
+		name: 'directus/jsdoc',
 		plugins: {
 			jsdoc: pluginJsdoc,
 		},
 		rules: {
+			// Check existing JSDoc comments without enforcing them
 			'jsdoc/check-access': 'warn',
 			'jsdoc/check-param-names': 'warn',
 			'jsdoc/check-property-names': 'warn',
@@ -25,7 +26,6 @@ export function jsdoc(): FlatConfigItem {
 			'jsdoc/require-yields-check': 'warn',
 			'jsdoc/check-alignment': 'warn',
 			'jsdoc/multiline-blocks': 'warn',
-
 		},
 	};
 }

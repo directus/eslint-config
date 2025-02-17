@@ -1,16 +1,4 @@
 {
-	"dprint-plugin-typescript": {
-		"configKey": "typescript",
-		"version": "0.93.3",
-		"fileExtensions": [
-			"ts",
-			"tsx",
-			"js",
-			"jsx",
-			"cjs",
-			"mjs"
-		]
-	},
 	"dprint-plugin-markdown": {
 		"configKey": "markdown",
 		"version": "0.17.8",

@@ -6,11 +6,7 @@ export function command(): FlatConfigItem {
 
 	return {
 		name: 'directus/command',
-		plugins: {
-			...config.plugins,
-		},
-		rules: {
-			...config.rules,
-		},
+		plugins: config.plugins!,
+		rules: config.rules!,
 	};
 }

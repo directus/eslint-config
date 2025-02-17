@@ -3,93 +3,53 @@ import type {
 } from '../types.js';
 import pluginTs from '@typescript-eslint/eslint-plugin';
 import parserTs from '@typescript-eslint/parser';
-
-import { GLOB_TS } from '../globals.js';
-import { renameRules } from '../utils.js';
+import { GLOB_TS, GLOB_VUE } from '../globs.js';
 
 export function typescript(): FlatConfigItem {
-	const componentExts = [];
-	const type = 'app';
-
-	const files = [
-		GLOB_TS,
-		...componentExts.map(ext => `**/*.${ext}`),
-	];
-
-	return [
-		{
-			name: 'directus/typescript',
-			files,
-			plugins: {
-				// antfu: pluginAntfu,
-				ts: pluginTs,
-			},
-			languageOptions: {
-				parser: parserTs,
-				parserOptions: {
-					extraFileExtensions: componentExts.map(ext => `.${ext}`),
-					sourceType: 'module',
-				},
+	return {
+		name: 'directus/typescript',
+		files: [GLOB_TS, GLOB_VUE],
+		plugins: {
+			'@typescript-eslint': pluginTs,
+		},
+		languageOptions: {
+			parser: parserTs,
+			parserOptions: {
+				extraFileExtensions: ['.vue'],
+				sourceType: 'module',
 			},
 		},
-		{
-			files,
-			name: 'directus/typescript/rules',
-			rules: {
-				...renameRules(
-					pluginTs.configs['eslint-recommended'].overrides![0].rules!,
-					{ '@typescript-eslint': 'ts' },
-				),
-				...renameRules(
-					pluginTs.configs.strict.rules!,
-					{ '@typescript-eslint': 'ts' },
-				),
-				'no-dupe-class-members': 'off',
-				'no-redeclare': 'off',
-				'no-use-before-define': 'off',
-				'no-useless-constructor': 'off',
-				'ts/ban-ts-comment': ['error', { 'ts-expect-error': 'allow-with-description' }],
-				'ts/consistent-type-definitions': ['error', 'interface'],
-				'ts/consistent-type-imports': ['error', {
-					disallowTypeAnnotations: false,
-					fixStyle: 'separate-type-imports',
-					prefer: 'type-imports',
-				}],
+		rules: {
+			...pluginTs.configs['eslint-recommended']!.overrides![0]!.rules,
+			...pluginTs.configs['strict']!.rules,
 
-				'ts/method-signature-style': ['error', 'property'], // https://www.totaltypescript.com/method-shorthand-syntax-considered-harmful
-				'ts/no-dupe-class-members': 'error',
-				'ts/no-dynamic-delete': 'off',
-				'ts/no-empty-object-type': ['error', { allowInterfaces: 'always' }],
-				'ts/no-explicit-any': 'off',
-				'ts/no-extraneous-class': 'off',
-				'ts/no-import-type-side-effects': 'error',
-				'ts/no-invalid-void-type': 'off',
-				'ts/no-non-null-assertion': 'off',
-				'ts/no-redeclare': ['error', { builtinGlobals: false }],
-				'ts/no-require-imports': 'error',
-				'ts/no-unused-expressions': ['error', {
-					allowShortCircuit: true,
-					allowTaggedTemplates: true,
-					allowTernary: true,
-				}],
-				'ts/no-unused-vars': 'off',
-				'ts/no-use-before-define': ['error', { classes: false, functions: false, variables: true }],
-				'ts/no-useless-constructor': 'off',
-				'ts/no-wrapper-object-types': 'error',
-				'ts/triple-slash-reference': 'off',
-				'ts/unified-signatures': 'off',
+			'@typescript-eslint/no-dynamic-delete': 'off',
+			'@typescript-eslint/no-non-null-assertion': 'off',
+			'@typescript-eslint/no-explicit-any': 'off',
+			'@typescript-eslint/unified-signatures': 'off',
+			// checked via 'unused-imports/no-unused-vars'
+			'@typescript-eslint/no-unused-vars': 'off',
 
-				...(type === 'lib'
-					? {
-							'ts/explicit-function-return-type': ['error', {
-								allowExpressions: true,
-								allowHigherOrderFunctions: true,
-								allowIIFEs: true,
-							}],
-						}
-					: {}
-				),
-			},
+			// Additional rules/overrides, borrowed from https://github.com/antfu/eslint-config
+			'@typescript-eslint/ban-ts-comment': ['error', { 'ts-expect-error': 'allow-with-description' }],
+			'@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+			'@typescript-eslint/consistent-type-imports': ['error', {
+				disallowTypeAnnotations: false,
+				fixStyle: 'separate-type-imports',
+				prefer: 'type-imports',
+			}],
+			'@typescript-eslint/method-signature-style': ['error', 'property'], // https://www.totaltypescript.com/method-shorthand-syntax-considered-harmful
+			'@typescript-eslint/no-dupe-class-members': 'error',
+			'@typescript-eslint/no-empty-object-type': ['error', { allowInterfaces: 'always' }],
+			'@typescript-eslint/no-import-type-side-effects': 'error',
+			'@typescript-eslint/no-redeclare': ['error', { builtinGlobals: false }],
+			'@typescript-eslint/no-unused-expressions': ['error', {
+				allowShortCircuit: true,
+				allowTaggedTemplates: true,
+				allowTernary: true,
+			}],
+			'no-use-before-define': 'off',
+			'@typescript-eslint/no-use-before-define': ['error', { classes: false, functions: false, variables: true }],
 		},
-	];
+	};
 }

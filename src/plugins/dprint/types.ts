@@ -1,4 +1,8 @@
-import type { DprintOptions } from '../dts/rule-options.js';
+import type { GlobalConfiguration } from '@dprint/formatter';
+
+export interface DprintOptions extends GlobalConfiguration {
+	languageOptions?: Record<string, unknown>;
+}
 
 /** Async equivalent of a sync function */
 type AsyncFunction<T extends (...arguments_: any[]) => any> = (...arguments_: Parameters<T>) => Promise<ReturnType<T>>;

@@ -8,7 +8,7 @@ const __DEV___ = true;
 
 let format: Format;
 
-const dprint: Rule.RuleModule = {
+const rule: Rule.RuleModule = {
 	meta: {
 		type: 'layout',
 		docs: {
@@ -35,8 +35,8 @@ const dprint: Rule.RuleModule = {
 	},
 	create(context) {
 		if (!format) {
-			format = createSyncFn<AsyncFormat>(fileURLToPath(new URL(__DEV___ ? './worker.ts' : './worker.js', import.meta.url)), {
-				...(__DEV___ && { tsRunner: 'node' }),
+			format = createSyncFn<AsyncFormat>(fileURLToPath(new URL('worker.js', import.meta.url)), {
+				...(__DEV___ && { tsRunner: 'tsx' }),
 			});
 		}
 
@@ -62,4 +62,4 @@ const dprint: Rule.RuleModule = {
 	},
 };
 
-export default dprint;
+export default rule;

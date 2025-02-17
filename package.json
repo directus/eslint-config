@@ -2,7 +2,7 @@
 	"name": "@directus/eslint-config",
 	"type": "module",
 	"version": "0.0.0",
-	"packageManager": "pnpm@10.3.0",
+	"packageManager": "pnpm@10.4.1",
 	"description": "Shared ESLint config used in Directus projects",
 	"author": {
 		"name": "Monospace Inc",
@@ -38,6 +38,7 @@
 		"build": "pnpm run '/^(bundle|typecheck)$/'",
 		"bundle": "tsup src/index.ts --format=esm --minify --dts",
 		"typecheck": "tsc --noEmit",
+		"fetch-dprint-plugins": "node scripts/fetch-dprint-plugins.js",
 		"lint": "eslint .",
 		"test": "vitest --watch=false",
 		"inspect": "pnpm dlx @eslint/config-inspector --config eslint.config.ts"
@@ -46,7 +47,6 @@
 		"eslint": "^9.10"
 	},
 	"dependencies": {
-		"@directus/eslint-plugin-dprint": "workspace:*",
 		"@dprint/formatter": "0.4.1",
 		"@eslint-community/eslint-plugin-eslint-comments": "4.4.1",
 		"@eslint/js": "9.20.0",
@@ -60,14 +60,12 @@
 		"eslint-formatting-reporter": "0.0.0",
 		"eslint-merge-processors": "2.0.0",
 		"eslint-parser-plain": "0.1.1",
-		"eslint-plugin-antfu": "3.0.0",
-		"eslint-plugin-command": "3.0.0",
-		"eslint-plugin-format": "1.0.1",
+		"eslint-plugin-antfu": "3.1.0",
+		"eslint-plugin-command": "3.1.0",
 		"eslint-plugin-jsdoc": "50.6.3",
 		"eslint-plugin-jsonc": "2.19.1",
 		"eslint-plugin-n": "17.15.1",
-		"eslint-plugin-no-only-tests": "3.3.0",
-		"eslint-plugin-perfectionist": "4.8.0",
+		"eslint-plugin-perfectionist": "4.9.0",
 		"eslint-plugin-regexp": "2.7.0",
 		"eslint-plugin-toml": "0.12.0",
 		"eslint-plugin-unicorn": "56.0.1",
@@ -77,31 +75,31 @@
 		"eslint-processor-vue-blocks": "2.0.0",
 		"globals": "15.15.0",
 		"jsonc-eslint-parser": "2.4.0",
-		"local-pkg": "1.0.0",
+		"synckit": "0.9.2",
 		"toml-eslint-parser": "0.10.0",
-		"typescript-eslint": "8.24.0",
 		"vue-eslint-parser": "9.4.3",
 		"yaml-eslint-parser": "1.2.3"
 	},
 	"devDependencies": {
-		"@antfu/eslint-config": "4.2.0",
 		"@directus/tsconfig": "3.0.0",
 		"@espcom/esbuild-plugin-replace": "1.1.0",
-		"@types/node": "22.13.2",
+		"@sprout2000/esbuild-copy-plugin": "1.1.16",
+		"@types/node": "22.13.4",
 		"eslint": "9.20.1",
-		"eslint-define-config": "2.1.0",
 		"eslint-plugin-import-x": "4.6.1",
+		"execa": "9.5.2",
 		"jiti": "2.4.2",
 		"tsup": "8.3.6",
+		"tsx": "4.19.2",
 		"typescript": "5.7.3",
 		"vitest": "3.0.5"
 	},
 	"pnpm": {
-		"patchedDependencies": {
-			"synckit@0.9.2": "patches/synckit@0.9.2.patch"
-		},
 		"onlyBuiltDependencies": [
 			"esbuild"
-		]
+		],
+		"patchedDependencies": {
+			"synckit@0.9.2": "patches/synckit@0.9.2.patch"
+		}
 	}
 }

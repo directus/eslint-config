@@ -10,6 +10,7 @@ import {
 	javascript,
 	jsdoc,
 	jsonc,
+	markdown,
 	node,
 	perfectionist,
 	regexp,
@@ -23,7 +24,9 @@ import {
 	vue,
 	yaml,
 } from './configs/index.js';
-import { isInEditor } from './globals.js';
+import { isInEditorEnv } from './utils.js';
+
+export const isInEditor = isInEditorEnv();
 
 function directusConfig(): FlatConfigComposer<LinterConfig> {
 	if (isInEditor) {
@@ -31,12 +34,7 @@ function directusConfig(): FlatConfigComposer<LinterConfig> {
 		console.log('[@directus/eslint-config] Detected running in editor, some rules are disabled.');
 	}
 
-	// if (enableVue) {
-	const componentExtensions = [];
-	componentExtensions.push('vue');
-	// }
-
-	const configs: FlatConfigItem = [
+	const configs: FlatConfigItem[] = [
 		ignores(),
 		javascript(),
 		eslintComments(),
@@ -46,9 +44,7 @@ function directusConfig(): FlatConfigComposer<LinterConfig> {
 		command(),
 		perfectionist(),
 		unicorn(),
-		typescript({
-			componentExts: componentExtensions,
-		}),
+		typescript(),
 		stylistic(),
 		regexp(),
 		test(),
@@ -59,7 +55,7 @@ function directusConfig(): FlatConfigComposer<LinterConfig> {
 		dprint(),
 		yaml(),
 		toml(),
-		// markdown({componentExts,},),
+		markdown(),
 		disables(),
 
 	];
@@ -69,11 +65,11 @@ function directusConfig(): FlatConfigComposer<LinterConfig> {
 	if (isInEditor) {
 		composer = composer
 			.disableRulesFix([
-				'unused-imports/no-unused-imports',
-				'test/no-only-tests',
 				'prefer-const',
+				'unused-imports/no-unused-imports',
 			], {
-				builtinRules: () => import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.builtinRules),
+				// Required for patching core rules like `prefer-const` (rules without a plugin prefix)
+				builtinRules: () => import(['eslint', 'use-at-your-own-risk'].join('/')).then((r) => r.builtinRules),
 			});
 	}
 

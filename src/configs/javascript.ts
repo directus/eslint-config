@@ -2,7 +2,7 @@ import type { FlatConfigItem } from '../types.js';
 import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
-import { isInEditor } from '../globals.js';
+import { isInEditor } from '../index.js';
 
 export function javascript(): FlatConfigItem {
 	return {
@@ -21,7 +21,7 @@ export function javascript(): FlatConfigItem {
 		rules: {
 			...js.configs.recommended.rules,
 
-			// rules borrowed and adjusted from https://github.com/antfu/eslint-config
+			// Additional rules/overrides, borrowed from https://github.com/antfu/eslint-config
 			'accessor-pairs': ['error', { enforceForClassMembers: true, setWithoutGet: true }],
 			'array-callback-return': 'error',
 			'block-scoped-var': 'error',

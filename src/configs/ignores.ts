@@ -1,6 +1,6 @@
 import type { FlatConfigItem } from '../types.js';
 import gitignore from 'eslint-config-flat-gitignore';
-import { GLOB_EXCLUDE } from '../globals.js';
+import { GLOB_EXCLUDE } from '../globs.js';
 
 export function ignores(): FlatConfigItem {
 	const { ignores } = gitignore({

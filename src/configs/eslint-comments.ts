@@ -6,13 +6,8 @@ export function eslintComments(): FlatConfigItem {
 	return {
 		name: 'directus/eslint-comments',
 		plugins: {
-			'eslint-comments': pluginEslintComments,
+			'@eslint-community/eslint-comments': pluginEslintComments,
 		},
-		rules: {
-			'eslint-comments/no-aggregating-enable': 'error',
-			'eslint-comments/no-duplicate-disable': 'error',
-			'eslint-comments/no-unlimited-disable': 'error',
-			'eslint-comments/no-unused-enable': 'error',
-		},
+		rules: pluginEslintComments.configs.recommended.rules,
 	};
 }

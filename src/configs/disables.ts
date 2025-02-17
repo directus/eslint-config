@@ -1,5 +1,5 @@
 import type { FlatConfigItem } from '../types.js';
-import { GLOB_SRC } from '../globals.js';
+import { GLOB_SRC } from '../globs.js';
 
 export function disables(): FlatConfigItem {
 	return [

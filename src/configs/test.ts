@@ -1,47 +1,27 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginVitest from '@vitest/eslint-plugin';
-// @ts-expect-error untyped module
-import pluginNoOnlyTests from 'eslint-plugin-no-only-tests';
-import { GLOB_TESTS, isInEditor } from '../globals.js';
+import { GLOB_TESTS } from '../globs.js';
+import { isInEditor } from '../index.js';
 
-// Hold the reference so we don't redeclare the plugin on each call
-let _pluginTest: any;
-
-export function test(
-): FlatConfigItem {
-	_pluginTest = _pluginTest || {
-		...pluginVitest,
+export function test(): FlatConfigItem {
+	return {
+		name: 'directus/test',
+		plugins: {
+			vitest: pluginVitest,
+		},
+		files: GLOB_TESTS,
 		rules: {
-			...pluginVitest.rules,
-			// extend `test/no-only-tests` rule
-			...pluginNoOnlyTests.rules,
+			...pluginVitest.configs.recommended.rules,
+
+			'vitest/prefer-hooks-in-order': 'error',
+			'vitest/consistent-test-it': ['error', { fn: 'it', withinDescribe: 'it' }],
+			'vitest/prefer-lowercase-title': 'error',
+			'vitest/no-focused-tests': isInEditor ? 'warn' : 'error',
+			'vitest/no-disabled-tests': isInEditor ? 'warn' : 'error',
+
+			// Disables
+			'no-unused-expressions': 'off',
+			'n/prefer-global/process': 'off',
 		},
 	};
-
-	return [
-		{
-			name: 'directus/test/setup',
-			plugins: {
-				test: _pluginTest,
-			},
-		},
-		{
-			files: GLOB_TESTS,
-			name: 'directus/test/rules',
-			rules: {
-				'test/consistent-test-it': ['error', { fn: 'it', withinDescribe: 'it' }],
-				'test/no-identical-title': 'error',
-				'test/no-import-node-test': 'error',
-				'test/no-only-tests': isInEditor ? 'warn' : 'error',
-
-				'test/prefer-hooks-in-order': 'error',
-				'test/prefer-lowercase-title': 'error',
-
-				// Disables
-				'no-unused-expressions': 'off',
-				'node/prefer-global/process': 'off',
-				'ts/explicit-function-return-type': 'off',
-			},
-		},
-	];
 }

@@ -2,11 +2,12 @@ import type { FlatConfigItem } from '../types.js';
 import pluginMarkdown from '@eslint/markdown';
 import { mergeProcessors, processorPassThrough } from 'eslint-merge-processors';
 import * as parserPlain from 'eslint-parser-plain';
-import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from '../globals.js';
+import { GLOB_MARKDOWN, GLOB_SRC, GLOB_VUE } from '../globs.js';
 
-export async function markdown(): FlatConfigItem {
+export function markdown(): FlatConfigItem {
 	const files = [GLOB_MARKDOWN];
-	const componentExts = [];
+	const markdownInMarkdown = `${GLOB_MARKDOWN}/*.md`;
+	const codeInMarkdown = [GLOB_SRC, GLOB_VUE];
 
 	return [
 		{
@@ -17,9 +18,9 @@ export async function markdown(): FlatConfigItem {
 		},
 		{
 			files,
-			ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
+			ignores: [markdownInMarkdown],
 			name: 'directus/markdown/processor',
-			// `eslint-plugin-markdown` only creates virtual files for code blocks,
+			// `@eslint/markdown` only creates virtual files for code blocks,
 			// but not the markdown file itself. We use `eslint-merge-processors` to
 			// add a pass-through processor for the markdown file itself.
 			processor: mergeProcessors([
@@ -36,10 +37,7 @@ export async function markdown(): FlatConfigItem {
 		},
 		{
 			name: 'directus/markdown/disables',
-			files: [
-				GLOB_MARKDOWN_CODE,
-				...componentExts.map(ext => `${GLOB_MARKDOWN}/**/*.${ext}`),
-			],
+			files: codeInMarkdown.map((glob) => `${GLOB_MARKDOWN}/${glob}`),
 			languageOptions: {
 				parserOptions: {
 					ecmaFeatures: {
@@ -58,24 +56,24 @@ export async function markdown(): FlatConfigItem {
 				'no-undef': 'off',
 				'no-unused-expressions': 'off',
 				'no-unused-labels': 'off',
-
-				'no-unused-vars': 'off',
-				'node/prefer-global/process': 'off',
-				'style/comma-dangle': 'off',
-
-				'style/eol-last': 'off',
-				'ts/consistent-type-imports': 'off',
-				'ts/explicit-function-return-type': 'off',
-				'ts/no-namespace': 'off',
-				'ts/no-redeclare': 'off',
-				'ts/no-require-imports': 'off',
-				'ts/no-unused-expressions': 'off',
-				'ts/no-unused-vars': 'off',
-				'ts/no-use-before-define': 'off',
-
 				'unicode-bom': 'off',
+
 				'unused-imports/no-unused-imports': 'off',
 				'unused-imports/no-unused-vars': 'off',
+
+				'n/prefer-global/process': 'off',
+
+				'@stylistic/comma-dangle': 'off',
+				'@stylistic/eol-last': 'off',
+
+				'@typescript-eslint/consistent-type-imports': 'off',
+				'@typescript-eslint/explicit-function-return-type': 'off',
+				'@typescript-eslint/no-namespace': 'off',
+				'@typescript-eslint/no-redeclare': 'off',
+				'@typescript-eslint/no-require-imports': 'off',
+				'@typescript-eslint/no-unused-expressions': 'off',
+				'@typescript-eslint/no-unused-vars': 'off',
+				'@typescript-eslint/no-use-before-define': 'off',
 			},
 		},
 	];

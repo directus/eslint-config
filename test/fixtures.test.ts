@@ -1,58 +1,53 @@
-import { glob } from 'node:fs/promises';
+import fs from 'node:fs/promises';
 import path from 'node:path';
-import fs from 'fs-extra';
+import { execa } from 'execa';
 import { afterAll, beforeAll, it } from 'vitest';
+
+const from = path.resolve('fixtures/input');
+const output = path.resolve('fixtures/output');
+const target = path.resolve('_fixtures');
 
 beforeAll(async () => {
 	await fs.rm('_fixtures', { recursive: true, force: true });
+
+	await fs.cp(from, target, { recursive: true });
+
+	await execa('pnpm', ['eslint', target, '--fix'], {
+		stdio: 'pipe',
+	});
 });
+
 afterAll(async () => {
 	await fs.rm('_fixtures', { recursive: true, force: true });
 });
 
-runWithConfig();
+const files = await getFixtureFiles();
 
-function runWithConfig() {
-	it.concurrent('todo', async ({ expect }) => {
-		const from = path.resolve('fixtures/input');
-		const output = path.resolve('fixtures/output');
-		const target = path.resolve('_fixtures');
+it.concurrent.for(files)('%s', async (file, { expect }) => {
+	const content = await fs.readFile(path.join(target, file), 'utf8');
+	const source = await fs.readFile(path.join(from, file), 'utf8');
 
-		await fs.copy(from, target, {
-			filter: (src) => {
-				return !src.includes('node_modules');
-			},
-		});
-		await fs.writeFile(path.join(target, 'eslint.config.js'), `
-// @eslint-disable
-import directusConfig from '@directus/eslint-config';
+	if (content === source) {
+		const outputPath = path.join(output, file);
+		try {
+			await fs.unlink(outputPath);
+		}
+		catch {}
+		return;
+	}
+	await expect.soft(content).toMatchFileSnapshot(path.join(output, file));
+});
 
-export default directusConfig;
-  `);
+async function getFixtureFiles() {
+	const files: string[] = [];
 
-		await execa('pnpm', ['eslint', '.', '--fix'], {
-			cwd: target,
-			stdio: 'pipe',
-		});
+	for await (const entry of fs.glob('**/*', {
+		cwd: from,
+		withFileTypes: true,
+	})) {
+		if (entry.isFile())
+			files.push(path.join(path.relative(from, entry.parentPath), entry.name));
+	}
 
-		const files = await Array.fromAsync(glob('**/*', {
-			exclude: [
-				'node_modules',
-				'eslint.config.js',
-			],
-			cwd: target,
-		}));
-
-		await Promise.all(files.map(async (file) => {
-			const content = await fs.readFile(path.join(target, file), 'utf8');
-			const source = await fs.readFile(path.join(from, file), 'utf8');
-			const outputPath = path.join(output, file);
-			if (content === source) {
-				if (fs.existsSync(outputPath))
-					await fs.remove(outputPath);
-				return;
-			}
-			await expect.soft(content).toMatchFileSnapshot(path.join(output, file));
-		}));
-	}, 30_000);
+	return files;
 }

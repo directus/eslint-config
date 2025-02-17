@@ -1,3 +1,4 @@
+import type { Linter } from 'eslint';
 import process from 'node:process';
 
 export function isInEditorEnv(): boolean {
@@ -21,32 +22,19 @@ function isInGitHooks(): boolean {
 	);
 }
 
+type Undefinable<T> = {
+	[P in keyof T]: T[P] | undefined;
+};
+
 /**
- * Rename plugin prefixes in a rule object.
- * Accepts a map of prefixes to rename.
- *
- * @example
- * ```ts
- * rules: renameRules(
- *   {
- *     '@typescript-eslint/indent': 'error'
- *   },
- *   { '@typescript-eslint': 'ts' }
- * )
- * ```
+ * Extract all rules from a flat config array.
  */
-export function renameRules(
-	rules: Record<string, any>,
-	map: Record<string, string>,
-): Record<string, any> {
-	return Object.fromEntries(
-		Object.entries(rules)
-			.map(([key, value]) => {
-				for (const [from, to] of Object.entries(map)) {
-					if (key.startsWith(`${from}/`))
-						return [to + key.slice(from.length), value];
-				}
-				return [key, value];
-			}),
-	);
+export function extractRules<T extends Undefinable<Linter.Config>[] = Linter.Config[]>(config: T): T[number]['rules'] extends undefined ? Linter.RulesRecord : T[number]['rules'] {
+	const rules = {};
+
+	for (const entry of config) {
+		Object.assign(rules, entry.rules);
+	}
+
+	return rules;
 }

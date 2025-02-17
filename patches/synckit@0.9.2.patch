@@ -1,37 +1,43 @@
-diff --git a/lib/index.d.ts b/lib/index.d.ts
-index 25b3a8ba1fec7d96d841ad869c0d2b6113902ff1..9ef72a11173c0a3619b6d6ea11a4758530e00e69 100644
---- a/lib/index.d.ts
-+++ b/lib/index.d.ts
-@@ -3,6 +3,7 @@ import { type TransferListItem } from 'node:worker_threads';
- import type { AnyAsyncFn, GlobalShim, Syncify, ValueOf } from './types.js';
- export * from './types.js';
- export declare const TsRunner: {
-+	readonly Node: "node";
-     readonly TsNode: "ts-node";
-     readonly EsbuildRegister: "esbuild-register";
-     readonly EsbuildRunner: "esbuild-runner";
 diff --git a/lib/index.js b/lib/index.js
-index 2c28246c1298e7a576e7617e1c4a2176350d694e..c72261b646463b1d4ae139260fc613f507c1abdc 100644
+index 2c28246c1298e7a576e7617e1c4a2176350d694e..d70d5f3778c60b263d208688c377dae37192bc2b 100644
 --- a/lib/index.js
 +++ b/lib/index.js
-@@ -9,6 +9,7 @@ import { findUp, isPkgAvailable, tryExtensions } from '@pkgr/core';
- const INT32_BYTES = 4;
- export * from './types.js';
- export const TsRunner = {
-+	Node: 'node',
-     TsNode: 'ts-node',
-     EsbuildRegister: 'esbuild-register',
-     EsbuildRunner: 'esbuild-runner',
-@@ -118,6 +119,12 @@ const setupTsRunner = (workerPath, { execArgv, tsRunner }) => {
-             tsRunner = TsRunner.TsNode;
-         }
-         switch (tsRunner) {
-+			case TsRunner.Node: {
-+                if (!execArgv.includes('--experimental-strip-types')) {
-+                    execArgv = ['--experimental-strip-types', ...execArgv];
-+                }
-+                break;
-+            }
-             case TsRunner.TsNode: {
-                 if (tsUseEsm) {
-                     if (!execArgv.includes('--loader')) {
+@@ -148,9 +148,6 @@ const setupTsRunner = (workerPath, { execArgv, tsRunner }) => {
+                 break;
+             }
+             case TsRunner.TSX: {
+-                if (!execArgv.includes('--loader')) {
+-                    execArgv = ['--loader', TsRunner.TSX, ...execArgv];
+-                }
+                 break;
+             }
+             default: {
+@@ -292,14 +289,22 @@ function startWorkerThread(workerPath, { timeout = DEFAULT_TIMEOUT, execArgv = D
+         : Array.isArray(globalShims)
+             ? globalShims
+             : []).filter(({ moduleName }) => isPkgAvailable(moduleName));
++
+     sharedBufferView !== null && sharedBufferView !== void 0 ? sharedBufferView : (sharedBufferView = new Int32Array((sharedBuffer !== null && sharedBuffer !== void 0 ? sharedBuffer : (sharedBuffer = new SharedArrayBuffer(INT32_BYTES))), 0, 1));
+     const useGlobals = finalGlobalShims.length > 0;
+-    const useEval = isTs ? !tsUseEsm : !jsUseEsm && useGlobals;
+-    const worker = new Worker((jsUseEsm && useGlobals) || (tsUseEsm && finalTsRunner === TsRunner.TsNode)
+-        ? dataUrl(`${generateGlobals(finalWorkerPath, finalGlobalShims)};import '${String(workerPathUrl)}'`)
+-        : useEval
+-            ? `${generateGlobals(finalWorkerPath, finalGlobalShims, 'require')};${encodeImportModule(finalWorkerPath, 'require')}`
+-            : workerPathUrl, {
++    const useEval = finalTsRunner === TsRunner.TSX
++        ? true
++        : isTs
++            ? !tsUseEsm
++            : !jsUseEsm && useGlobals;
++    const workerFile = finalTsRunner === TsRunner.TSX
++        ? `import('tsx/esm/api').then(({ register }) => { register(); import('${finalWorkerPath}') })`
++        : (jsUseEsm && useGlobals) || (tsUseEsm && finalTsRunner === TsRunner.TsNode)
++            ? dataUrl(`${generateGlobals(finalWorkerPath, finalGlobalShims)};import '${String(workerPathUrl)}'`)
++            : useEval
++                ? `${generateGlobals(finalWorkerPath, finalGlobalShims, 'require')};${encodeImportModule(finalWorkerPath, 'require')}`
++                : workerPathUrl;
++    const worker = new Worker(workerFile, {
+         eval: useEval,
+         workerData: { sharedBuffer, workerPort, pnpLoaderPath },
+         transferList: [workerPort, ...transferList],
