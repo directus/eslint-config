@@ -3,6 +3,6 @@ import directusConfig from './src/index.js';
 export default [
 	...directusConfig,
 	{
-		// ignores: ['fixtures'],
+		ignores: ['fixtures'],
 	},
 ];
