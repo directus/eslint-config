@@ -12,7 +12,7 @@ beforeAll(async () => {
 
 	await fs.cp(from, target, { recursive: true });
 
-	await execa('pnpm', ['eslint', target, '--fix'], {
+	await execa('pnpm', ['eslint', '--no-ignore', target, '--fix', target], {
 		stdio: 'pipe',
 	});
 });

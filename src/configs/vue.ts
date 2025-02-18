@@ -55,6 +55,8 @@ export function vue(): FlatConfigItem {
 
 			'vue/max-attributes-per-line': 'off',
 			'vue/multi-word-component-names': 'off',
+			// deprecated but still in recommended
+			'vue/component-tags-order': 'off',
 
 			'vue/prefer-true-attribute-shorthand': 'error',
 			'vue/no-unused-vars': ['error', { ignorePattern: '^_' }],

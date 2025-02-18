@@ -1,0 +1,20 @@
+version: '1.0'
+name: Sample Project
+description: This is a sample project file with some formatting issues.
+dependencies:
+  - name: dependency1
+    version: 1.2.3
+  - name: dependency2
+    version: 2.3.4
+author: Kay Doe
+license: MIT
+
+scripts:
+  build: npm run build
+
+test: npm run test
+environment:
+  dev:
+    api_url: 'http://localhost:3000'
+prod:
+  api_url: 'https://api.example.com'
