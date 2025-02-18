@@ -42,7 +42,6 @@ export function typescript(): FlatConfigItem {
 			'@typescript-eslint/no-dupe-class-members': 'error',
 			'@typescript-eslint/no-empty-object-type': ['error', { allowInterfaces: 'always' }],
 			'@typescript-eslint/no-import-type-side-effects': 'error',
-			'@typescript-eslint/no-redeclare': ['error', { builtinGlobals: false }],
 			'@typescript-eslint/no-unused-expressions': ['error', {
 				allowShortCircuit: true,
 				allowTaggedTemplates: true,

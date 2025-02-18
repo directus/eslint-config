@@ -10,7 +10,7 @@ export function unicorn(): FlatConfigItem {
 		rules: {
 			...pluginUnicorn.configs['flat/recommended'].rules,
 
-			// Too exaggerated/extensive
+			// Too specific/extensive
 			'unicorn/prevent-abbreviations': 'off',
 			'unicorn/no-null': 'off',
 			'unicorn/no-unnecessary-polyfills': 'off',

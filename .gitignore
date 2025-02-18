@@ -16,3 +16,5 @@ coverage/
 .history/
 *.sublime-settings
 .*.swp
+
+_fixtures/
