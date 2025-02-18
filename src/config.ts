@@ -34,7 +34,7 @@ export function createConfig(): FlatConfigComposer<LinterConfig> {
 		console.log('[@directus/eslint-config] Detected running in editor, some rules are disabled.');
 	}
 
-	const configs: FlatConfigItem[] = [
+	const configs: (FlatConfigItem | Promise<FlatConfigItem>)[] = [
 		ignores(),
 		javascript(),
 		eslintComments(),
@@ -57,10 +57,9 @@ export function createConfig(): FlatConfigComposer<LinterConfig> {
 		toml(),
 		markdown(),
 		disables(),
-
 	];
 
-	let composer = new FlatConfigComposer<LinterConfig>(...configs);
+	let composer = new FlatConfigComposer(...configs);
 
 	if (isInEditor) {
 		composer = composer
