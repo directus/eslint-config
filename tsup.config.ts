@@ -1,28 +1,30 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { pluginReplace } from '@espcom/esbuild-plugin-replace';
-import cP from '@sprout2000/esbuild-copy-plugin';
 import { defineConfig } from 'tsup';
 
-const { copyPlugin: pluginCopy } = cP;
-
 export default defineConfig({
-	entry: ['src/index.ts', 'src/plugins/dprint/worker.ts'],
+	entry: {
+		index: 'src/index.ts',
+		worker: 'src/plugins/dprint/worker.ts',
+	},
 	format: 'esm',
-	dts: true,
+	dts: 'src/index.ts',
 	minify: true,
-	esbuildOptions(options) {
-		options.plugins = [
-			pluginReplace([
-				{
-					filter: /src\/plugins\/dprint\/rule\.js$/,
-					replace: '__DEV___ = true',
-					replacer: () => '__DEV___ = false',
-				},
-			]),
-			pluginCopy({
-				src: 'src/plugins/dprint/dprint-plugins',
-				dest: 'dist',
+	esbuildPlugins: [
+		pluginReplace([
+			{
+				filter: /src\/plugins\/dprint\/rule\.ts$/,
+				replace: '__DEV__ = true',
+				replacer: () => '__DEV__ = false',
 			},
-			),
-		];
+		]),
+	],
+	onSuccess: async () => {
+		const promises: Promise<void>[] = [];
+		for await (const entry of fs.glob('src/plugins/dprint/dprint-plugins/*.wasm')) {
+			promises.push(fs.cp(entry, path.join('dist/dprint-plugins', path.basename(entry))));
+		}
+		await Promise.all(promises);
 	},
 });

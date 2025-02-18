@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { messages, reportDifferences } from 'eslint-formatting-reporter';
 import { createSyncFn } from 'synckit';
 
-const __DEV___ = true;
+const __DEV__ = true;
 
 let format: Format;
 
@@ -36,7 +36,7 @@ const rule: Rule.RuleModule = {
 	create(context) {
 		if (!format) {
 			format = createSyncFn<AsyncFormat>(fileURLToPath(new URL('worker.js', import.meta.url)), {
-				...(__DEV___ && { tsRunner: 'tsx' }),
+				...(__DEV__ && { tsRunner: 'tsx' }),
 			});
 		}
 

@@ -2,7 +2,7 @@ import type { FlatConfigItem } from '../types.js';
 import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
-import { isInEditor } from '../index.js';
+import { isInEditor } from '../config.js';
 
 export function javascript(): FlatConfigItem {
 	return {

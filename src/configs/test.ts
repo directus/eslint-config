@@ -1,7 +1,7 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginVitest from '@vitest/eslint-plugin';
+import { isInEditor } from '../config.js';
 import { GLOB_TESTS } from '../globs.js';
-import { isInEditor } from '../index.js';
 
 export function test(): FlatConfigItem {
 	return {

@@ -36,7 +36,7 @@
 	],
 	"scripts": {
 		"build": "pnpm run '/^(bundle|typecheck)$/'",
-		"bundle": "tsup src/index.ts --format=esm --minify --dts",
+		"bundle": "tsup",
 		"typecheck": "tsc --noEmit",
 		"fetch-dprint-plugins": "node scripts/fetch-dprint-plugins.js",
 		"lint": "eslint .",
@@ -44,7 +44,7 @@
 		"inspect": "pnpm dlx @eslint/config-inspector --config eslint.config.ts"
 	},
 	"peerDependencies": {
-		"eslint": "^9.10"
+		"eslint": "^9.20"
 	},
 	"dependencies": {
 		"@dprint/formatter": "0.4.1",
@@ -52,8 +52,8 @@
 		"@eslint/js": "9.20.0",
 		"@eslint/markdown": "6.2.2",
 		"@stylistic/eslint-plugin": "3.1.0",
-		"@typescript-eslint/eslint-plugin": "8.24.0",
-		"@typescript-eslint/parser": "8.24.0",
+		"@typescript-eslint/eslint-plugin": "8.24.1",
+		"@typescript-eslint/parser": "8.24.1",
 		"@vitest/eslint-plugin": "1.1.31",
 		"eslint-config-flat-gitignore": "2.0.0",
 		"eslint-flat-config-utils": "2.0.1",
@@ -62,13 +62,14 @@
 		"eslint-parser-plain": "0.1.1",
 		"eslint-plugin-antfu": "3.1.0",
 		"eslint-plugin-command": "3.1.0",
+		"eslint-plugin-import-x": "4.6.1",
 		"eslint-plugin-jsdoc": "50.6.3",
 		"eslint-plugin-jsonc": "2.19.1",
 		"eslint-plugin-n": "17.15.1",
 		"eslint-plugin-perfectionist": "4.9.0",
 		"eslint-plugin-regexp": "2.7.0",
 		"eslint-plugin-toml": "0.12.0",
-		"eslint-plugin-unicorn": "56.0.1",
+		"eslint-plugin-unicorn": "57.0.0",
 		"eslint-plugin-unused-imports": "4.1.4",
 		"eslint-plugin-vue": "9.32.0",
 		"eslint-plugin-yml": "1.16.0",
@@ -83,10 +84,8 @@
 	"devDependencies": {
 		"@directus/tsconfig": "3.0.0",
 		"@espcom/esbuild-plugin-replace": "1.1.0",
-		"@sprout2000/esbuild-copy-plugin": "1.1.16",
 		"@types/node": "22.13.4",
 		"eslint": "9.20.1",
-		"eslint-plugin-import-x": "4.6.1",
 		"execa": "9.5.2",
 		"jiti": "2.4.2",
 		"tsup": "8.3.6",
