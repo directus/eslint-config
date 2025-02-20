@@ -19,7 +19,7 @@ export function dprint(): FlatConfigItem {
 			},
 		},
 		createDprintConfig('html', [GLOB_HTML], { whitespaceSensitivity: 'ignore', formatComments: true }),
-		createDprintConfig('style', [GLOB_STYLE], { formatComments: true }),
+		createDprintConfig('style', [GLOB_STYLE], { quotes: 'preferSingle', formatComments: true }),
 		createDprintConfig('markdown', [GLOB_MARKDOWN], { textWrap: 'always' }),
 		createDprintConfig('graphql', [GLOB_GRAPHQL], { formatComments: true }),
 	];
