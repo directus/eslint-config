@@ -6,13 +6,6 @@
 			"md"
 		]
 	},
-	"dprint-plugin-dockerfile": {
-		"configKey": "dockerfile",
-		"version": "0.3.2",
-		"fileExtensions": [
-			"dockerfile"
-		]
-	},
 	"g-plane/malva": {
 		"configKey": "malva",
 		"version": "0.11.1",

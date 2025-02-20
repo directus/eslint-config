@@ -10,7 +10,6 @@ export const GLOB_YAML = '**/*.y?(a)ml';
 export const GLOB_TOML = '**/*.toml';
 export const GLOB_HTML = '**/*.html';
 export const GLOB_GRAPHQL = '**/*.{g,graph}ql';
-export const GLOB_DOCKERFILE = '**/Dockerfile?(.*)';
 
 export const GLOB_TESTS = [
 	`**/__tests__/**/*.${GLOB_SRC_EXT}`,

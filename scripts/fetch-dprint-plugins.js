@@ -4,7 +4,6 @@ import { Readable } from 'node:stream';
 
 const plugins = [
 	'dprint-plugin-markdown',
-	'dprint-plugin-dockerfile',
 	'g-plane/malva',
 	'g-plane/markup_fmt',
 	'g-plane/pretty_graphql',
@@ -24,6 +23,7 @@ if (data.schemaVersion !== schemaVersion) {
 const metaPath = new URL(`${pluginsDir}/meta.json`, import.meta.url);
 
 let meta;
+
 try {
 	meta = JSON.parse(await readFile(metaPath));
 }
