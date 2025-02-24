@@ -2,6 +2,16 @@
 
 Opinionated ESLint config used by the projects in the Directus ecosystem.
 
+- Lint and format JS/TS, Vue JSON, YAML and TOML files (via ESLint)
+- Format HTML, CSS/SCSS, MD and GQL files (via [dprint](https://github.com/dprint/dprint))
+- Contains recommended and hand-picked rules
+  - [eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x) - Linting of import/export syntax
+  - [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n) - Rules for Node.js
+  - [eslint-plugin-vitest](https://github.com/vitest-dev/eslint-plugin-vitest) - Linting tests
+  - [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) - Best practice rules for JS/TS
+  - and more...
+- Includes [eslint-plugin-command](https://github.com/antfu/eslint-plugin-command) for one-off codemod
+
 ## Installation
 
 ```shell
@@ -19,7 +29,7 @@ _Minimal_
 export { default } from '@directus/eslint-config';
 ```
 
-_With additional config_
+_When using additional config_
 
 ```js
 import directusConfig from '@directus/eslint-config';
@@ -35,6 +45,8 @@ export default [
 This config is heavily inspired by and partially based on Anthony's ESLint config preset ❤️\
 If you're looking for an ESLint config preset outside of the Directus ecosystem, check it out at
 https://github.com/antfu/eslint-config.
+
+Credits also go to all maintainers of the ESLint plugins this config is using.
 
 ## Additional Resources
 
