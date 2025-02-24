@@ -1,0 +1,43 @@
+diff --git a/lib/index.js b/lib/index.js
+index 2c28246c1298e7a576e7617e1c4a2176350d694e..d70d5f3778c60b263d208688c377dae37192bc2b 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -148,9 +148,6 @@ const setupTsRunner = (workerPath, { execArgv, tsRunner }) => {
+                 break;
+             }
+             case TsRunner.TSX: {
+-                if (!execArgv.includes('--loader')) {
+-                    execArgv = ['--loader', TsRunner.TSX, ...execArgv];
+-                }
+                 break;
+             }
+             default: {
+@@ -292,14 +289,22 @@ function startWorkerThread(workerPath, { timeout = DEFAULT_TIMEOUT, execArgv = D
+         : Array.isArray(globalShims)
+             ? globalShims
+             : []).filter(({ moduleName }) => isPkgAvailable(moduleName));
++
+     sharedBufferView !== null && sharedBufferView !== void 0 ? sharedBufferView : (sharedBufferView = new Int32Array((sharedBuffer !== null && sharedBuffer !== void 0 ? sharedBuffer : (sharedBuffer = new SharedArrayBuffer(INT32_BYTES))), 0, 1));
+     const useGlobals = finalGlobalShims.length > 0;
+-    const useEval = isTs ? !tsUseEsm : !jsUseEsm && useGlobals;
+-    const worker = new Worker((jsUseEsm && useGlobals) || (tsUseEsm && finalTsRunner === TsRunner.TsNode)
+-        ? dataUrl(`${generateGlobals(finalWorkerPath, finalGlobalShims)};import '${String(workerPathUrl)}'`)
+-        : useEval
+-            ? `${generateGlobals(finalWorkerPath, finalGlobalShims, 'require')};${encodeImportModule(finalWorkerPath, 'require')}`
+-            : workerPathUrl, {
++    const useEval = finalTsRunner === TsRunner.TSX
++        ? true
++        : isTs
++            ? !tsUseEsm
++            : !jsUseEsm && useGlobals;
++    const workerFile = finalTsRunner === TsRunner.TSX
++        ? `import('tsx/esm/api').then(({ register }) => { register(); import('${finalWorkerPath}') })`
++        : (jsUseEsm && useGlobals) || (tsUseEsm && finalTsRunner === TsRunner.TsNode)
++            ? dataUrl(`${generateGlobals(finalWorkerPath, finalGlobalShims)};import '${String(workerPathUrl)}'`)
++            : useEval
++                ? `${generateGlobals(finalWorkerPath, finalGlobalShims, 'require')};${encodeImportModule(finalWorkerPath, 'require')}`
++                : workerPathUrl;
++    const worker = new Worker(workerFile, {
+         eval: useEval,
+         workerData: { sharedBuffer, workerPort, pnpLoaderPath },
+         transferList: [workerPort, ...transferList],

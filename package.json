@@ -1,0 +1,104 @@
+{
+	"name": "@directus/eslint-config",
+	"type": "module",
+	"version": "0.0.0",
+	"packageManager": "pnpm@10.4.1",
+	"description": "Shared ESLint config used in Directus projects",
+	"author": {
+		"name": "Monospace Inc",
+		"email": "info@monospace.io",
+		"url": "https://monospace.io"
+	},
+	"license": "MIT",
+	"funding": "https://github.com/directus/directus?sponsor=1",
+	"homepage": "https://directus.io",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/directus/eslint-config.git"
+	},
+	"exports": {
+		".": "./dist/index.js",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=22",
+		"pnpm": "10"
+	},
+	"maintainers": [
+		{
+			"name": "Pascal Jufer",
+			"email": "pascal@directus.io",
+			"url": "https://github.com/paescuj"
+		}
+	],
+	"scripts": {
+		"build": "pnpm run '/^(bundle|typecheck)$/'",
+		"bundle": "tsup",
+		"typecheck": "tsc --noEmit",
+		"fetch-dprint-plugins": "node scripts/fetch-dprint-plugins.js",
+		"lint": "eslint .",
+		"test": "vitest --watch=false",
+		"inspect": "pnpm dlx @eslint/config-inspector --config eslint.config.ts"
+	},
+	"peerDependencies": {
+		"eslint": "^9.20"
+	},
+	"dependencies": {
+		"@dprint/formatter": "0.4.1",
+		"@eslint-community/eslint-plugin-eslint-comments": "4.4.1",
+		"@eslint/js": "9.21.0",
+		"@eslint/markdown": "6.2.2",
+		"@stylistic/eslint-plugin": "4.0.1",
+		"@typescript-eslint/eslint-plugin": "8.24.1",
+		"@typescript-eslint/parser": "8.24.1",
+		"@vitest/eslint-plugin": "1.1.31",
+		"eslint-config-flat-gitignore": "2.1.0",
+		"eslint-flat-config-utils": "2.0.1",
+		"eslint-formatting-reporter": "0.0.0",
+		"eslint-merge-processors": "2.0.0",
+		"eslint-parser-plain": "0.1.1",
+		"eslint-plugin-antfu": "3.1.0",
+		"eslint-plugin-command": "3.1.0",
+		"eslint-plugin-import-x": "4.6.1",
+		"eslint-plugin-jsdoc": "50.6.3",
+		"eslint-plugin-jsonc": "2.19.1",
+		"eslint-plugin-n": "17.15.1",
+		"eslint-plugin-perfectionist": "4.9.0",
+		"eslint-plugin-regexp": "2.7.0",
+		"eslint-plugin-toml": "0.12.0",
+		"eslint-plugin-unicorn": "57.0.0",
+		"eslint-plugin-unused-imports": "4.1.4",
+		"eslint-plugin-vue": "9.32.0",
+		"eslint-plugin-yml": "1.17.0",
+		"eslint-processor-vue-blocks": "2.0.0",
+		"globals": "16.0.0",
+		"jsonc-eslint-parser": "2.4.0",
+		"synckit": "0.9.2",
+		"toml-eslint-parser": "0.10.0",
+		"vue-eslint-parser": "9.4.3",
+		"yaml-eslint-parser": "1.2.3"
+	},
+	"devDependencies": {
+		"@directus/tsconfig": "3.0.0",
+		"@espcom/esbuild-plugin-replace": "1.1.0",
+		"@types/node": "22.13.5",
+		"eslint": "9.21.0",
+		"execa": "9.5.2",
+		"jiti": "2.4.2",
+		"tsup": "8.3.6",
+		"tsx": "4.19.3",
+		"typescript": "5.7.3",
+		"vitest": "3.0.6"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		],
+		"patchedDependencies": {
+			"synckit@0.9.2": "patches/synckit@0.9.2.patch"
+		}
+	}
+}

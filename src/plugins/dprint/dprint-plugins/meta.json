@@ -1,0 +1,42 @@
+{
+	"dprint-plugin-markdown": {
+		"configKey": "markdown",
+		"version": "0.17.8",
+		"fileExtensions": [
+			"md"
+		]
+	},
+	"g-plane/malva": {
+		"configKey": "malva",
+		"version": "0.11.1",
+		"fileExtensions": [
+			"css",
+			"scss",
+			"sass",
+			"less"
+		]
+	},
+	"g-plane/markup_fmt": {
+		"configKey": "markup",
+		"version": "0.18.0",
+		"fileExtensions": [
+			"html",
+			"vue",
+			"svelte",
+			"astro",
+			"jinja",
+			"jinja2",
+			"twig",
+			"njk",
+			"vto"
+		]
+	},
+	"g-plane/pretty_graphql": {
+		"configKey": "graphql",
+		"version": "0.2.1",
+		"fileExtensions": [
+			"graphql",
+			"gql"
+		]
+	}
+}
