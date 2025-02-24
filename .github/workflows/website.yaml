@@ -2,7 +2,7 @@ name: Deploy website
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -23,14 +23,16 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build eslint output
-        run: pnpm dlx @eslint/config-inspector --config eslint.config.ts build
+        run: pnpm dlx @eslint/config-inspector --config eslint.config.ts build --base /eslint-config/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.eslint-config-inspector'
+          path: .eslint-config-inspector
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
