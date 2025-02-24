@@ -2,13 +2,14 @@
 
 Opinionated ESLint config used by the projects in the Directus ecosystem.
 
-- Lint and format JS/TS, Vue JSON, YAML and TOML files (via ESLint)
+- Lint and format JS/TS, Vue, JSON, YAML and TOML files (via ESLint)
 - Format HTML, CSS/SCSS, MD and GQL files (via [dprint](https://github.com/dprint/dprint))
 - Contains recommended and hand-picked rules
   - [eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x) - Linting of import/export syntax
   - [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n) - Rules for Node.js
   - [eslint-plugin-vitest](https://github.com/vitest-dev/eslint-plugin-vitest) - Linting tests
   - [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) - Best practice rules for JS/TS
+  - [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic) - Formatting rules
   - and more...
 - Includes [eslint-plugin-command](https://github.com/antfu/eslint-plugin-command) for one-off codemod
 
