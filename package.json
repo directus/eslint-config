@@ -83,7 +83,6 @@
 	},
 	"devDependencies": {
 		"@directus/tsconfig": "3.0.0",
-		"@espcom/esbuild-plugin-replace": "1.1.0",
 		"@types/node": "22.13.5",
 		"eslint": "9.21.0",
 		"execa": "9.5.2",
@@ -91,6 +90,7 @@
 		"tsup": "8.3.6",
 		"tsx": "4.19.3",
 		"typescript": "5.7.3",
+		"unplugin-replace": "0.5.0",
 		"vitest": "3.0.6"
 	},
 	"pnpm": {

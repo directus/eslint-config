@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { pluginReplace } from '@espcom/esbuild-plugin-replace';
 import { defineConfig } from 'tsup';
+import pluginReplace from 'unplugin-replace/esbuild';
 
 export default defineConfig({
 	entry: {
@@ -12,13 +12,12 @@ export default defineConfig({
 	dts: 'src/index.ts',
 	minify: true,
 	esbuildPlugins: [
-		pluginReplace([
+		pluginReplace(
 			{
-				filter: /src\/plugins\/dprint\/rule\.ts$/,
-				replace: '__DEV__ = true',
-				replacer: () => '__DEV__ = false',
+				include: 'src/plugins/dprint/rule.ts',
+				values: { '__DEV__ = true': '__DEV__ = false' },
 			},
-		]),
+		),
 	],
 	onSuccess: async () => {
 		const promises: Promise<void>[] = [];
