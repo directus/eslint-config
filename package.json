@@ -1,7 +1,7 @@
 {
 	"name": "@directus/eslint-config",
 	"type": "module",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"packageManager": "pnpm@10.4.1",
 	"description": "Shared ESLint config used in Directus projects",
 	"author": {
