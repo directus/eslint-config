@@ -21,7 +21,7 @@ afterAll(async () => {
 	await fs.rm('_fixtures', { recursive: true, force: true });
 });
 
-const files = await getFixtureFiles();
+const files = await getFileList();
 
 it.concurrent.for(files)('%s', async (file, { expect }) => {
 	const content = await fs.readFile(path.join(target, file), 'utf8');
@@ -29,16 +29,14 @@ it.concurrent.for(files)('%s', async (file, { expect }) => {
 
 	if (content === source) {
 		const outputPath = path.join(output, file);
-		try {
-			await fs.unlink(outputPath);
-		}
-		catch {}
+		fs.unlink(outputPath).catch(() => {});
 		return;
 	}
+
 	await expect.soft(content).toMatchFileSnapshot(path.join(output, file));
 });
 
-async function getFixtureFiles() {
+async function getFileList() {
 	const files: string[] = [];
 
 	for await (const entry of fs.glob('**/*', {

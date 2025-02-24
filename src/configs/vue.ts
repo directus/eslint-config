@@ -53,6 +53,7 @@ export function vue(): FlatConfigItem {
 		rules: {
 			...extractRules(pluginVue.configs['flat/recommended']),
 
+			'vue/require-default-prop': 'off',
 			'vue/max-attributes-per-line': 'off',
 			'vue/multi-word-component-names': 'off',
 			// deprecated but still in recommended
@@ -112,7 +113,7 @@ export function vue(): FlatConfigItem {
 				multiline: 'always',
 				singleline: 'always',
 			}],
-			'vue/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
+			'vue/brace-style': ['error', 'stroustrup', { allowSingleLine: false }],
 			'vue/comma-dangle': ['error', 'always-multiline'],
 			'vue/comma-spacing': ['error', { after: true, before: false }],
 			'vue/comma-style': ['error', 'last'],
@@ -124,7 +125,7 @@ export function vue(): FlatConfigItem {
 			'vue/object-curly-newline': 'off',
 			'vue/object-curly-spacing': ['error', 'always'],
 			'vue/object-property-newline': ['error', { allowMultiplePropertiesPerLine: true }],
-			'vue/operator-linebreak': ['error', 'before'],
+			'vue/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
 			'vue/padding-line-between-blocks': ['error', 'always'],
 			'vue/quote-props': ['error', 'consistent-as-needed'],
 			'vue/space-in-parens': ['error', 'never'],

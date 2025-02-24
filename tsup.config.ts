@@ -22,9 +22,11 @@ export default defineConfig({
 	],
 	onSuccess: async () => {
 		const promises: Promise<void>[] = [];
+
 		for await (const entry of fs.glob('src/plugins/dprint/dprint-plugins/*.wasm')) {
 			promises.push(fs.cp(entry, path.join('dist/dprint-plugins', path.basename(entry))));
 		}
+
 		await Promise.all(promises);
 	},
 });

@@ -11,7 +11,7 @@ export * from './markdown.js';
 export * from './node.js';
 export * from './perfectionist.js';
 export * from './regexp.js';
-export * from './sort.js';
+export * from './sort/index.js';
 export * from './stylistic.js';
 export * from './test.js';
 export * from './toml.js';

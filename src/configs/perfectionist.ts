@@ -1,9 +1,11 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
+import { GLOBS_CODE } from '../globs.js';
 
 export function perfectionist(): FlatConfigItem {
 	return {
 		name: 'directus/perfectionist',
+		files: GLOBS_CODE,
 		plugins: {
 			perfectionist: pluginPerfectionist,
 		},

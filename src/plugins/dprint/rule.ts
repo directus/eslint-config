@@ -20,10 +20,6 @@ const rule: Rule.RuleModule = {
 			{
 				type: 'object',
 				properties: {
-					language: {
-						type: 'string',
-						required: true,
-					},
 					languageOptions: {
 						type: 'object',
 					},
@@ -43,6 +39,7 @@ const rule: Rule.RuleModule = {
 		return {
 			Program() {
 				const sourceCode = context.sourceCode.text;
+
 				try {
 					const formatted = format(sourceCode, context.filename, context.options[0] || {});
 

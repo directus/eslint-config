@@ -1,9 +1,11 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginN from 'eslint-plugin-n';
+import { GLOB_JS_TS } from '../globs.js';
 
 export function node(): FlatConfigItem {
 	return {
 		name: 'directus/node',
+		files: [GLOB_JS_TS],
 		plugins: {
 			n: pluginN,
 		},

@@ -29,9 +29,6 @@ export function jsonc(): FlatConfigItem {
 				'jsonc/object-curly-newline': ['error', { consistent: true, multiline: true }],
 				'jsonc/object-curly-spacing': ['error', 'always'],
 				'jsonc/object-property-newline': ['error', { allowMultiplePropertiesPerLine: true }],
-
-				// Disables
-				'unused-imports/no-unused-vars': 'off',
 			},
 		},
 	];

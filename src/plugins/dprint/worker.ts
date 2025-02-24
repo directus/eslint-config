@@ -9,7 +9,7 @@ import meta from './dprint-plugins/meta.json' with { type: 'json' };
 const cache = new Map<string, Formatter>();
 
 const format: AsyncFormat = async (code, filename, options) => {
-	const fileExtension = path.extname(filename).slice(1);
+	const fileExtension = path.extname(filename).slice(1).toLowerCase();
 
 	let formatter = cache.get(fileExtension);
 

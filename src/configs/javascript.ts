@@ -3,10 +3,12 @@ import js from '@eslint/js';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import { isInEditor } from '../config.js';
+import { GLOBS_CODE } from '../globs.js';
 
 export function javascript(): FlatConfigItem {
 	return {
 		name: 'directus/javascript',
+		files: GLOBS_CODE,
 		languageOptions: {
 			ecmaVersion: 2023,
 			globals: {

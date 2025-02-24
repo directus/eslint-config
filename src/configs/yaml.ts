@@ -20,7 +20,6 @@ export function yaml(): FlatConfigItem {
 			'yml/quotes': ['error', { avoidEscape: true, prefer: 'single' }],
 
 			// Disables
-			'unused-imports/no-unused-vars': 'off',
 			'@stylistic/spaced-comment': 'off',
 		},
 	};

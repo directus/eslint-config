@@ -2,24 +2,18 @@ import type { FlatConfigItem } from '../types.js';
 import pluginMarkdown from '@eslint/markdown';
 import { mergeProcessors, processorPassThrough } from 'eslint-merge-processors';
 import * as parserPlain from 'eslint-parser-plain';
-import { GLOB_MARKDOWN, GLOB_SRC, GLOB_VUE } from '../globs.js';
+import { GLOB_MARKDOWN, GLOBS_CODE } from '../globs.js';
 
 export function markdown(): FlatConfigItem {
 	const files = [GLOB_MARKDOWN];
 	const markdownInMarkdown = `${GLOB_MARKDOWN}/*.md`;
-	const codeInMarkdown = [GLOB_SRC, GLOB_VUE];
+	const codeInMarkdown = GLOBS_CODE.map((glob) => `${GLOB_MARKDOWN}/${glob}`);
 
 	return [
 		{
-			name: 'directus/markdown/setup',
-			plugins: {
-				markdown: pluginMarkdown,
-			},
-		},
-		{
+			name: 'directus/markdown/processor',
 			files,
 			ignores: [markdownInMarkdown],
-			name: 'directus/markdown/processor',
 			// `@eslint/markdown` only creates virtual files for code blocks,
 			// but not the markdown file itself. We use `eslint-merge-processors` to
 			// add a pass-through processor for the markdown file itself.
@@ -36,8 +30,8 @@ export function markdown(): FlatConfigItem {
 			},
 		},
 		{
-			name: 'directus/markdown/disables',
-			files: codeInMarkdown.map((glob) => `${GLOB_MARKDOWN}/${glob}`),
+			name: 'directus/markdown/code-blocks',
+			files: codeInMarkdown,
 			languageOptions: {
 				parserOptions: {
 					ecmaFeatures: {
@@ -46,8 +40,6 @@ export function markdown(): FlatConfigItem {
 				},
 			},
 			rules: {
-				'import/newline-after-import': 'off',
-
 				'no-alert': 'off',
 				'no-console': 'off',
 				'no-labels': 'off',

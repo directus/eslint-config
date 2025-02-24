@@ -1,9 +1,11 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginJsdoc from 'eslint-plugin-jsdoc';
+import { GLOBS_CODE } from '../globs.js';
 
 export function jsdoc(): FlatConfigItem {
 	return {
 		name: 'directus/jsdoc',
+		files: GLOBS_CODE,
 		plugins: {
 			jsdoc: pluginJsdoc,
 		},

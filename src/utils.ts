@@ -29,7 +29,7 @@ type Undefinable<T> = {
 /**
  * Extract all rules from a flat config array.
  */
-export function extractRules<T extends Undefinable<Linter.Config>[] = Linter.Config[]>(config: T): T[number]['rules'] extends undefined ? Linter.RulesRecord : T[number]['rules'] {
+export function extractRules<T extends Undefinable<Linter.Config>[]>(config: T): T[number]['rules'] extends undefined ? Linter.RulesRecord : NonNullable<T[number]['rules']> {
 	const rules = {};
 
 	for (const entry of config) {

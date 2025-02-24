@@ -13,7 +13,7 @@ export function dprint(): FlatConfigItem {
 
 	return [
 		{
-			name: 'directus/dprint/setup',
+			name: 'directus/dprint',
 			plugins: {
 				dprint: pluginDprint,
 			},

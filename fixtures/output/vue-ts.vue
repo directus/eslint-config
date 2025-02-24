@@ -21,14 +21,14 @@ const incrementCounter = () => {
 	</div>
 </template>
 
-  <style>
-  .a {
+<style>
+.a {
 	color: red;
 }
 </style>
 
-  <style lang="scss">
-  $font-stack: Helvetica, sans-serif;
+<style lang="scss">
+$font-stack: Helvetica, sans-serif;
 $primary-color: #333;
 
 body {
