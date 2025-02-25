@@ -1,9 +1,10 @@
-name: Deploy website
+name: Deploy Website
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches:
+      - main
+  workflow_dispatch: {}
 
 permissions:
   contents: read
@@ -11,19 +12,21 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  deploy:
+    name: Deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup env
         uses: ./.github/actions/setup
 
-      - name: Build eslint output
-        run: pnpm dlx @eslint/config-inspector --config eslint.config.ts build --base /eslint-config/
+      - name: Build static ESLint config inspector
+        run: pnpm exec eslint-config-inspector build --base /eslint-config/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
