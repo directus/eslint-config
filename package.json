@@ -39,7 +39,7 @@
 		"bundle": "tsup",
 		"typecheck": "tsc --noEmit",
 		"fetch-dprint-plugins": "node scripts/fetch-dprint-plugins.js",
-		"lint": "eslint .",
+		"lint": "eslint",
 		"test": "vitest --watch=false",
 		"inspect": "pnpm exec eslint-config-inspector"
 	},
