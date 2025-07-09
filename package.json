@@ -86,7 +86,7 @@
 		"@eslint/config-inspector": "1.0.0",
 		"@types/node": "22.13.5",
 		"eslint": "9.21.0",
-		"execa": "9.5.2",
+		"execa": "9.6.0",
 		"jiti": "2.4.2",
 		"tsup": "8.3.6",
 		"tsx": "4.19.3",
