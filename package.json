@@ -50,7 +50,7 @@
 		"@dprint/formatter": "0.4.1",
 		"@eslint-community/eslint-plugin-eslint-comments": "4.4.1",
 		"@eslint/js": "9.21.0",
-		"@eslint/markdown": "6.2.2",
+		"@eslint/markdown": "6.6.0",
 		"@stylistic/eslint-plugin": "4.0.1",
 		"@typescript-eslint/eslint-plugin": "8.24.1",
 		"@typescript-eslint/parser": "8.24.1",
