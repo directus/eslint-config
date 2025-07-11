@@ -83,7 +83,7 @@
 	},
 	"devDependencies": {
 		"@directus/tsconfig": "3.0.0",
-		"@eslint/config-inspector": "1.0.0",
+		"@eslint/config-inspector": "1.1.0",
 		"@types/node": "22.13.5",
 		"eslint": "9.21.0",
 		"execa": "9.6.0",
