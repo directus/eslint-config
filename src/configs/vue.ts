@@ -124,7 +124,7 @@ export function vue(): FlatConfigItem {
 			'vue/keyword-spacing': ['error', { after: true, before: true }],
 			'vue/object-curly-newline': 'off',
 			'vue/object-curly-spacing': ['error', 'always'],
-			'vue/object-property-newline': ['error', { allowMultiplePropertiesPerLine: true }],
+			'vue/object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
 			'vue/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
 			'vue/padding-line-between-blocks': ['error', 'always'],
 			'vue/quote-props': ['error', 'consistent-as-needed'],
