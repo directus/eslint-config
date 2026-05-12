@@ -13,14 +13,14 @@ export function perfectionist(): FlatConfigItem {
 			'perfectionist/sort-exports': ['error', { order: 'asc', type: 'natural' }],
 			'perfectionist/sort-imports': ['error', {
 				groups: [
-					'type',
-					['parent-type', 'sibling-type', 'index-type', 'internal-type'],
+					'type-import',
+					['type-parent', 'type-sibling', 'type-index', 'type-internal'],
 					'builtin',
 					'external',
 					'internal',
 					['parent', 'sibling', 'index'],
 					'side-effect',
-					'object',
+					'ts-equals-import',
 					'unknown',
 				],
 				newlinesBetween: 'ignore',

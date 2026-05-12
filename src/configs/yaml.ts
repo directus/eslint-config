@@ -1,6 +1,6 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginYml from 'eslint-plugin-yml';
-import parserYaml from 'yaml-eslint-parser';
+import * as parserYaml from 'yaml-eslint-parser';
 import { GLOB_YAML } from '../globs.js';
 import { extractRules } from '../utils.js';
 

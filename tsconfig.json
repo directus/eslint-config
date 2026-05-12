@@ -1,8 +1,10 @@
 {
 	"extends": "@directus/tsconfig/node22",
 	"compilerOptions": {
+		"ignoreDeprecations": "6.0",
 		"module": "NodeNext",
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"types": ["node"]
 	},
 	"include": ["src"]
 }

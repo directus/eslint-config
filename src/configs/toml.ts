@@ -1,6 +1,6 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginToml from 'eslint-plugin-toml';
-import parserToml from 'toml-eslint-parser';
+import * as parserToml from 'toml-eslint-parser';
 import { GLOB_TOML } from '../globs.js';
 import { extractRules } from '../utils.js';
 

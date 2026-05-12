@@ -1,7 +1,7 @@
-import type { Formatter } from '@dprint/formatter';
 import type { AsyncFormat } from './types.js';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import type { Formatter } from '@dprint/formatter';
 import { createFromBuffer } from '@dprint/formatter';
 import { runAsWorker } from 'synckit';
 import meta from './dprint-plugins/meta.json' with { type: 'json' };
