@@ -1,6 +1,6 @@
+import type { Rule } from 'eslint';
 import type { AsyncFormat, Format } from './types.js';
 import { fileURLToPath } from 'node:url';
-import type { Rule } from 'eslint';
 import { messages, reportDifferences } from 'eslint-formatting-reporter';
 import { createSyncFn } from 'synckit';
 

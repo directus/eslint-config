@@ -1,5 +1,5 @@
-import process from 'node:process';
 import type { Linter } from 'eslint';
+import process from 'node:process';
 
 export function isInEditorEnv(): boolean {
 	if (process.env['CI'])

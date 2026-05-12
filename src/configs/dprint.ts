@@ -1,6 +1,6 @@
+import type { Linter } from 'eslint';
 import type { DprintOptions } from '../plugins/dprint/types.js';
 import type { FlatConfigItem } from '../types.js';
-import type { Linter } from 'eslint';
 import * as parserPlain from 'eslint-parser-plain';
 import { GLOB_GRAPHQL, GLOB_HTML, GLOB_MARKDOWN, GLOB_STYLE } from '../globs.js';
 import pluginDprint from '../plugins/dprint/index.js';

@@ -44,7 +44,7 @@
 		"inspect": "pnpm exec eslint-config-inspector"
 	},
 	"peerDependencies": {
-		"eslint": "^9.20 || ^10.0"
+		"eslint": "^10.0.0"
 	},
 	"dependencies": {
 		"@dprint/formatter": "0.5.1",
