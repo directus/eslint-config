@@ -26,7 +26,7 @@ import {
 } from './configs/index.js';
 import { isInEditorEnv } from './utils.js';
 
-export const isInEditor = isInEditorEnv();
+export const isInEditor: boolean = isInEditorEnv();
 
 export function createConfig(): FlatConfigComposer<LinterConfig> {
 	if (isInEditor) {

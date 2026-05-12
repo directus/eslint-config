@@ -1,6 +1,6 @@
 import type { FlatConfigItem } from '../types.js';
 import pluginJsonc from 'eslint-plugin-jsonc';
-import parserJsonc from 'jsonc-eslint-parser';
+import * as parserJsonc from 'jsonc-eslint-parser';
 import { GLOB_JSON } from '../globs.js';
 import { extractRules } from '../utils.js';
 
